@@ -7,9 +7,9 @@
 
 （一）文法设计
 ---
-S->R;
-R->R ||R |!R|R&&R| (R) | B;
-B-> B>=B | B>B | B<=B | B<B| B==B |B!=B |VALUE;
+> S->R;
+> R->R ||R |!R|R&&R| (R) | B;
+> B-> B>=B | B>B | B<=B | B<B| B==B |B!=B |VALUE;
 
 将运算比较符的优先级设置为最高，括号与布尔比较符次之。VALUE为数值。
 
@@ -17,30 +17,30 @@ B-> B>=B | B>B | B<=B | B<B| B==B |B!=B |VALUE;
 ---
 为文法的非终结符添加属性bo,计算布尔值。产生式与语义规则如下。
 
-S->R          { if(R.bo)printf("Output: true.");else printf("Output: false."); return 0; }
+> S->R          { if(R.bo)printf("Output: true.");else printf("Output: false."); return 0; }
 
-R->R1 ||R2    { R.bo= (R1.bo || R2.bo;}
-!R1        {R .bo =!R1.bo；}
-R1&&R2    {R.bo = (R1.bo && R2.bo;}
- (R1)       {R.bo = R1.bo;}
-B         { R.bo =B.bo; }
+> R->R1 ||R2    { R.bo= (R1.bo || R2.bo;}
+> !R1        {R .bo =!R1.bo；}
+> R1&&R2    {R.bo = (R1.bo && R2.bo;}
+> (R1)       {R.bo = R1.bo;}
+> B         { R.bo =B.bo; }
 
-B->B1>=B2    {B .bo = (B1 .bo >= B2 .bo;}
- B1>B2     { B .bo = (B1 .bo > B2 .bo;} 
- B1<=B2    { B .bo = (B1.bo <= B2 .bo;}
- B1<B2     { B .bo = (B1.bo < B2 .bo;}
- B1==B2    { B .bo = (B1 .bo == B2 .bo;}
-B1!=B2    { B .bo = (B1 .bo!= B2 .bo;}
- VALUE     { B .bo = VALUE .yylval ;}
+> B->B1>=B2    {B .bo = (B1 .bo >= B2 .bo;}
+>  B1>B2     { B .bo = (B1 .bo > B2 .bo;} 
+>  B1<=B2    { B .bo = (B1.bo <= B2 .bo;}
+>  B1<B2     { B .bo = (B1.bo < B2 .bo;}
+>  B1==B2    { B .bo = (B1 .bo == B2 .bo;}
+> B1!=B2    { B .bo = (B1 .bo!= B2 .bo;}
+> VALUE     { B .bo = VALUE .yylval ;}
 
 
  （三）基于flex的词法分析器
 ---
 
  1. 定义模式
-digit	[0-9]
-letter [a-zA-Z]
-num  {digit}+
+> digit	[0-9]
+> letter [a-zA-Z]
+> num  {digit}+
 
  2. 错误输入提示
 [.]     {printf("input error");}
